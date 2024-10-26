@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  *
  * This is the class that will be responsible for all the configuration and init
  * of the database.
- * 
+ *
  * It implements the Manager class for the sake of abstracting away the actual
  * implementation in case I want to change how it's done in the future.
  */
@@ -29,14 +29,15 @@ public class DatabaseManager implements Manager {
         // Setups the embedded derby
         try {
             // get the derby driver
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+//            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             // use driver to get connection
             connection = DriverManager.getConnection(URL);
             // calls the initialiser function which attemps to create the necessary
             // tables if they don't already exist
             initializeDatabase();
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            System.err.println("Failed to connect to the database.");
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +51,7 @@ public class DatabaseManager implements Manager {
         } catch (SQLException ex) {
             // an error is given if the table already exists
             // so I found this solution online to deal with it
-            
+
             if (!ex.getSQLState().equals("X0Y32")) { // X0Y32 is the code for when a table already exists
                 Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -71,7 +72,7 @@ public class DatabaseManager implements Manager {
                 connection.close();
             }
         } catch (SQLException ex) {
-             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
