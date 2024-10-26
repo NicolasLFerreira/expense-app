@@ -14,6 +14,9 @@ import java.util.Map;
  * @author will
  *
  * stores expenses. abstracted the actual data structure behind with "Storage"
+ * 
+ * This is the implementation that was used for the part 1 of the assignment,
+ * leaving it here for now for reference.
  */
 public class ExpenseStorage implements Storage {
 

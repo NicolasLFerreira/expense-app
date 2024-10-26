@@ -18,7 +18,6 @@ import Enums.ScreenType;
 public abstract class Screen {
 
     // Name and id for managing what is what.
-    private final ScreenType type;
     protected final String title;
     protected final int id;
 
@@ -30,7 +29,6 @@ public abstract class Screen {
     protected final ScreenManager screenManager;
 
     protected Screen(ScreenType type, ScreenManager screenManager) {
-        this.type = type;
 
         this.title = type.getTitle();
         this.id = type.ordinal();

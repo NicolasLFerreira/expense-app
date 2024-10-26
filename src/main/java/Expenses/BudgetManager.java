@@ -4,6 +4,7 @@
  */
 package Expenses;
 
+import Database.DatabaseManager;
 import File.ExpenseParser;
 import File.FileManager;
 
@@ -19,7 +20,7 @@ public final class BudgetManager {
     private double income;
 
     public BudgetManager() {
-        this.expenses = new ExpenseStorage();
+        this.expenses = new DBExpenseStorage(new DatabaseManager());
 
         loadExpenses();
         loadIncome();
