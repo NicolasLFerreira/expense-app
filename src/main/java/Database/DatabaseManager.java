@@ -28,8 +28,6 @@ public class DatabaseManager implements Manager {
     public DatabaseManager() {
         // Setups the embedded derby
         try {
-            // get the derby driver
-//            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
             // use driver to get connection
             connection = DriverManager.getConnection(URL);
             // calls the initialiser function which attemps to create the necessary
