@@ -34,6 +34,9 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+#derby
+/ExpensesDB
+
 # Maven
 /target/*
 
