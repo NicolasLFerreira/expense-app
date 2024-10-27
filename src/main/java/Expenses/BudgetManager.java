@@ -26,7 +26,7 @@ public final class BudgetManager {
 
     // Public methods
     public double getBudget() {
-        return calculateTotalExpenses() - calculateTotalIncomes();
+        return calculateTotalIncomes() - calculateTotalExpenses();
     }
 
     // add methods
