@@ -53,7 +53,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
 
             // adds the name to the statement
-            statement.setString(2, name);
+            statement.setString(1, name);
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
