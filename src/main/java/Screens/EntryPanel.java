@@ -21,13 +21,13 @@ public class EntryPanel extends JPanel {
 
     // BudgetManager and UpdateTrigger refereneces.
     private final BudgetManager budgetManager;
-    private final UpdateTrigger updateTrigger;
+    private final UpdateManager updateTrigger;
 
     // For configuration
     private final FinancialRecordType frType;
 
     // Constructor for initializing the panel and its components
-    public EntryPanel(BudgetManager budgetManager, UpdateTrigger updateTrigger, FinancialRecordType frType) {
+    public EntryPanel(BudgetManager budgetManager, FinancialRecordType frType, UpdateManager updateTrigger) {
         // used for sending out signals to update screens
         this.updateTrigger = updateTrigger;
 
@@ -161,7 +161,7 @@ public class EntryPanel extends JPanel {
             // Create a new FinancialRecord object and add it to the BudgetManager
             budgetManager.addRecord(fr, frType);
             // triggers the update
-            updateTrigger.update();
+            updateTrigger.triggerUpdate();
 
             clearFields();
             showSuccessMessage(frType.getValue() + " added successfully!");

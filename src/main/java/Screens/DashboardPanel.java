@@ -11,7 +11,7 @@ import Expenses.BudgetManager;
  *
  * Displays the statistics of expenses and incomes
  */
-public class DashboardPanel extends JPanel {
+public class DashboardPanel extends JPanel implements Updateable {
 
     private final BudgetManager budgetManager;
     private static final Color BACKGROUND_COLOR = new Color(245, 247, 250);
@@ -121,7 +121,8 @@ public class DashboardPanel extends JPanel {
     }
     // Update dashboard
 
-    public void updateDashboard() {
+    @Override
+    public void update() {
         // Remove existing components
         remove(cardsPanel);
         remove(summaryPanel);

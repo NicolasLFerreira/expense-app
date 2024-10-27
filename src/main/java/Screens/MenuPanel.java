@@ -7,9 +7,10 @@ import java.awt.*;
 
 /**
  *
- * @author will, edited by nicolas Main application window for the Student
- * Budget Calculator. This class manages the main interface using JTabbedPane
- * for navigation.
+ * @author will, refactored by nicolas (added the update related code)
+ *
+ * Main application window for the Student Budget Calculator. This class manages
+ * the main interface using JTabbedPane for navigation.
  */
 public class MenuPanel extends JFrame {
 
@@ -31,33 +32,40 @@ public class MenuPanel extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Close the application when the window is closed
         setLocationRelativeTo(null);  // Center the window on the screen
 
-        // Display screens
+        // Update manager
+        UpdateManager updateManager = new UpdateManager();
+
+        // Dashboard panel
         dashboardPanel = new DashboardPanel(budgetManager);  // Budget screen for adding and viewing expenses
+
+        // List panels
+        expenseListPanel = new ListPanel(budgetManager, FinancialRecordType.EXPENSE, updateManager);
+        incomeListPanel = new ListPanel(budgetManager, FinancialRecordType.INCOME, updateManager);
+
+        // Entry panels
+        expenseEntryPanel = new EntryPanel(budgetManager, FinancialRecordType.EXPENSE, updateManager); // Panel for entering expenses
+        incomeEntryPanel = new EntryPanel(budgetManager, FinancialRecordType.INCOME, updateManager); // New panel for entering income
+
+        // Help panel
         helpPanel = new HelpPanel();  // Help screen with user instructions
-        expenseListPanel = new ListPanel(budgetManager, FinancialRecordType.EXPENSE);
-        incomeListPanel = new ListPanel(budgetManager, FinancialRecordType.INCOME);
 
-        // object used for updating other panels
-        UpdateTrigger updateTrigger = new UpdateTrigger(dashboardPanel, expenseListPanel);
-
-        // Instances of EntryPanel configured with FinancialRecordType
-        expenseEntryPanel = new EntryPanel(budgetManager, updateTrigger, FinancialRecordType.EXPENSE); // Panel for entering expenses
-        incomeEntryPanel = new EntryPanel(budgetManager, updateTrigger, FinancialRecordType.INCOME); // New panel for entering income
+        // Configures update manager with the instances of the created panels
+        updateManager.setPanels(new Updateable[]{dashboardPanel, expenseListPanel, incomeListPanel});
 
         // Create JTabbedPane for navigation
         JTabbedPane tabbedPane = new JTabbedPane();
+        // Dashboard panel
         tabbedPane.addTab("Dashboard", dashboardPanel);
+        // Entry panels
         tabbedPane.addTab("Income Entry", incomeEntryPanel);
         tabbedPane.addTab("Expense Entry", expenseEntryPanel);
+        // List panels
+        tabbedPane.addTab("Income List", incomeListPanel);
         tabbedPane.addTab("Expense List", expenseListPanel);
+        // Help panel
         tabbedPane.addTab("Help", helpPanel);
 
         // Add the tabbed pane to the frame (window)
         add(tabbedPane);
-    }
-
-    public void updateDashboard() {
-        dashboardPanel.revalidate();
-        dashboardPanel.repaint();
     }
 }

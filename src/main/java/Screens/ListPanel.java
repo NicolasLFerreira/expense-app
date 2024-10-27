@@ -17,23 +17,29 @@ import javax.swing.*;
  *
  * @author will's UI and code as base, modified by nicolas
  */
-public class ListPanel extends JPanel {
+public class ListPanel extends JPanel implements Updateable {
 
     // Fields for expense list, total label, and BudgetManager reference
     private final DefaultListModel<String> listModel;
     private final JList<String> expenseList;
     private final JLabel totalLabel;
+
+    // Budgetmanager and update manager
     private final BudgetManager budgetManager;
+    private final UpdateManager updateManager;
 
     // For configuration
     private final FinancialRecordType frType;
 
     // Constructor for initializing the panel with the record list and total amount
-    public ListPanel(BudgetManager budgetManager, FinancialRecordType frType) {
+    public ListPanel(BudgetManager budgetManager, FinancialRecordType frType, UpdateManager updateManager) {
         // Type
         this.frType = frType;
 
+        // managers
         this.budgetManager = budgetManager;
+        this.updateManager = updateManager;
+
         setLayout(new BorderLayout(10, 10)); // Set layout to BorderLayout with gaps
         setBackground(UIConstants.BACKGROUND_COLOR); // Set background color
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add padding around the panel
@@ -71,7 +77,7 @@ public class ListPanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER); // Add the list to the center
         add(totalLabel, BorderLayout.SOUTH); // Add the total label to the bottom
 
-        refreshList(); // Refresh the list to display the initial data
+        update(); // Refresh the list to display the initial data
     }
 
     // Creates a styled 'Clear All' button with hover effects and confirmation dialog
@@ -113,7 +119,8 @@ public class ListPanel extends JPanel {
 
         if (result == JOptionPane.YES_OPTION) {  // If user confirms
             budgetManager.clearStorage(frType);  // Clear all expenses from BudgetManager
-            refreshList();  // Refresh the list to update the UI
+            updateManager.triggerUpdate();
+            update();
             JOptionPane.showMessageDialog( // Show success message
                     this,
                     "All records have been cleared.",
@@ -124,7 +131,8 @@ public class ListPanel extends JPanel {
     }
 
     // Refreshes the list of records and updates the total amount displayed
-    public void refreshList() {
+    @Override
+    public void update() {
         listModel.clear();  // Clear the current list
         double total = budgetManager.getTotal(frType);
 
