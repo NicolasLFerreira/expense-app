@@ -7,10 +7,13 @@ package Database;
 /**
  *
  * @author nicol
+ * 
+ * Enum used for configuring the dbstorage
+ * 
  */
 public enum TableType {
-    EXPENSE(Tables.EXPENSE_TABLE),
-    INCOME(Tables.INCOME_TABLE);
+    EXPENSE(SqlQueryParameters.EXPENSE_TABLE),
+    INCOME(SqlQueryParameters.INCOME_TABLE);
 
     private final String value;
 

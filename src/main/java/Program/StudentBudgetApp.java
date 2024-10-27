@@ -4,10 +4,8 @@
  */
 package Program;
 
-import Database.DatabaseManager;
-import Expenses.*;
+import Expenses.BudgetManager;
 import Screens.*;
-import javax.swing.JFrame;
 
 /**
  *
@@ -23,14 +21,10 @@ public class StudentBudgetApp {
         // Create BudgetManager to manage expenses
         BudgetManager budgetManager = new BudgetManager();
 
-        // Create JFrame for the application window
-        JFrame frame = new JFrame("Student Budget Calculator");
-        BudgetScreenGUI budgetScreen = new BudgetScreenGUI(budgetManager);
+        // Create MenuScreenGUI and pass the budget manager
+        MenuScreenGUI menuScreen = new MenuScreenGUI(budgetManager);
 
-        // Set frame properties
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(budgetScreen); // Add the BudgetScreenGUI to the frame
-        frame.setSize(1000, 600); // Set the frame size
-        frame.setVisible(true); // Make the frame visible
+        // Show the MenuScreenGUI
+        menuScreen.setVisible(true);
     }
 }

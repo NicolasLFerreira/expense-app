@@ -6,7 +6,7 @@ import java.awt.*;
 import Expenses.BudgetManager;
 import Expenses.FinancialRecord;
 
-public class ExpenseEntryPanel extends JPanel {
+public class IncomePanel extends JPanel {
 
     // Fields for user input and BudgetManager reference
     private final JTextField descriptionField;
@@ -14,7 +14,7 @@ public class ExpenseEntryPanel extends JPanel {
     private final BudgetManager budgetManager;
 
     // Constructor for initializing the panel and its components
-    public ExpenseEntryPanel(BudgetManager budgetManager) {
+    public IncomePanel(BudgetManager budgetManager) {
         this.budgetManager = budgetManager;
         setLayout(new GridBagLayout());
         setBackground(UIConstants.BACKGROUND_COLOR);
@@ -32,7 +32,7 @@ public class ExpenseEntryPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
 
         // Add heading
-        JLabel heading = new JLabel("Expense Entry");
+        JLabel heading = new JLabel("Income Entry");
         heading.setFont(UIConstants.HEADING_FONT);
         gbc.gridy = 0;
         gbc.gridx = 0;
@@ -69,9 +69,9 @@ public class ExpenseEntryPanel extends JPanel {
         return field;
     }
 
-    // Creates a styled "Submit Expense" button with hover effects
+    // Creates a styled "Submit Income" button with hover effects
     private JButton createStyledSubmitButton() {
-        JButton button = new JButton("Submit Expense");
+        JButton button = new JButton("Submit Income");
         button.setFont(UIConstants.BUTTON_FONT);
         button.setForeground(Color.BLACK);
         button.setBackground(UIConstants.SUCCESS_COLOR);
@@ -90,7 +90,7 @@ public class ExpenseEntryPanel extends JPanel {
         });
 
         // Add action listener to handle the button click event
-        button.addActionListener(e -> submitExpense());
+        button.addActionListener(e -> submitIncome());
         return button;
     }
 
@@ -110,8 +110,8 @@ public class ExpenseEntryPanel extends JPanel {
         gbc.weightx = 1.0;
         add(component, gbc);
     }
-    // Handles the expense submission
-        private void submitExpense() {
+    // Handles the income submission
+        private void submitIncome() {
             try {
                 String description = descriptionField.getText().trim();
                 String amountText = amountField.getText().trim();
@@ -135,11 +135,11 @@ public class ExpenseEntryPanel extends JPanel {
                     return;
                 }
 
-                // Create a new Expense object and add it to the BudgetManager
-                FinancialRecord expense = new FinancialRecord(description, amount);
-                budgetManager.addExpense(expense);
+                // Create a new FinancialRecord object and add it to the BudgetManager
+                FinancialRecord income = new FinancialRecord(description, amount);
+                budgetManager.addIncome(income);
                 clearFields();
-                showSuccessMessage("Expense added successfully!");
+                showSuccessMessage("Income added successfully!");
             } catch (NumberFormatException ex) {
                 showErrorMessage("Please enter a valid amount");
             }

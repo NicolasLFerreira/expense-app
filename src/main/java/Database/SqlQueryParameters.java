@@ -8,9 +8,10 @@ package Database;
  *
  * @author nicol
  * 
- * Class holding constants of useful names for working with the db
+ * Class holding constants with the name of parameters that should have
+ * standardised naming in sql queries
  */
-public final class Tables {
+public final class SqlQueryParameters {
     // Table names
     public static final String EXPENSE_TABLE = "Expense";
     public static final String INCOME_TABLE = "Income";

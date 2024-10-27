@@ -6,7 +6,7 @@ package Expenses;
 
 import Database.Manager;
 import Database.TableType;
-import Database.Tables;
+import Database.SqlQueryParameters;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -30,14 +30,14 @@ import java.util.logging.Logger;
  * unused
  * @param <T> the table type;
  */
-public class DBExpenseStorage extends Storage implements AutoCloseable {
+public class DBStorage extends Storage implements AutoCloseable {
 
     private final Manager dbManager;
     // i'm making the constructor handle the connection creation instead doing it in each method like before
     private final Connection connection;
 
     // dependency injection of the dbmanager
-    public DBExpenseStorage(Manager dbManager, TableType type) {
+    public DBStorage(Manager dbManager, TableType type) {
         super(type);
         this.dbManager = dbManager;
         this.connection = dbManager.getConnection();
@@ -61,7 +61,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
                 return new FinancialRecord(name, amount);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
         // if failed. to be handled wherever it's used.
         return null;
@@ -96,7 +96,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -122,7 +122,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return false;
@@ -138,7 +138,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -157,7 +157,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
                 list.add(new FinancialRecord(rs.getString("name"), rs.getDouble("amount")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return list.toArray(FinancialRecord[]::new);

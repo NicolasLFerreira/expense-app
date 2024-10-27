@@ -9,7 +9,7 @@ import Database.TableType;
 
 /**
  *
- * @author will, edited by nicolas
+ * @author nicolas, edited by will
  *
  * ExpenseManager class to manage all expenses
  */
@@ -20,8 +20,8 @@ public final class BudgetManager {
 
     public BudgetManager() {
         // Configures the storage to be the db one
-        this.expenses = new DBExpenseStorage(new DatabaseManager(), TableType.EXPENSE);
-        this.incomes = new DBExpenseStorage(new DatabaseManager(), TableType.INCOME);
+        this.expenses = new DBStorage(new DatabaseManager(), TableType.EXPENSE);
+        this.incomes = new DBStorage(new DatabaseManager(), TableType.INCOME);
     }
 
     // Public methods
@@ -61,7 +61,7 @@ public final class BudgetManager {
     }
 
     // calculate totals
-    private double calculateTotalExpenses() {
+    public double calculateTotalExpenses() {
         double totalExpenses = 0.0;
         for (FinancialRecord expense : expenses.getArray()) {  // Loop through expenses to calculate total
             totalExpenses += expense.getAmount();
@@ -69,7 +69,7 @@ public final class BudgetManager {
         return totalExpenses;
     }
 
-    private double calculateTotalIncomes() {
+    public double calculateTotalIncomes() {
         double totalIncomes = 0.0;
         for (FinancialRecord income : incomes.getArray()) {  // Loop through expenses to calculate total
             totalIncomes += income.getAmount();
@@ -81,11 +81,15 @@ public final class BudgetManager {
         return expenses.getArray();
     }
 
-    public FinancialRecord[] getIncome() {
+    public FinancialRecord[] getIncomes() {
         return incomes.getArray();
     }
 
     public void clearExpenses() {
         expenses.clear(); // Assuming you're using a List<Expense> called expenses
+    }
+    
+    public void clearIncomes(){
+        incomes.clear();
     }
 }
