@@ -4,19 +4,20 @@
  */
 package Expenses;
 
-import Database.TableType;
+import Enums.FinancialRecordType;
 
 /**
  *
  * @author nicolas
  *
- * abstracts the access to a db
+ * abstracts the access to the DB
  */
 public abstract class Storage {
     
+    // Holds the name of which table a specific storage instance will be modifying
     protected final String table;
     
-    public Storage(TableType type){
+    public Storage(FinancialRecordType type){
         this.table = type.getValue();
     }
     

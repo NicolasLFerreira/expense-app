@@ -21,8 +21,12 @@ public class StudentBudgetApp {
         // Create BudgetManager to manage expenses
         BudgetManager budgetManager = new BudgetManager();
 
+        // For the sake of logging the state of the database
+        ConsoleLogger cl = new ConsoleLogger(budgetManager);
+        cl.log();
+        
         // Create MenuScreenGUI and pass the budget manager
-        MenuScreenGUI menuScreen = new MenuScreenGUI(budgetManager);
+        MenuPanel menuScreen = new MenuPanel(budgetManager);
 
         // Show the MenuScreenGUI
         menuScreen.setVisible(true);

@@ -13,8 +13,8 @@ package Database;
  */
 public final class SqlQueryParameters {
     // Table names
-    public static final String EXPENSE_TABLE = "Expense";
-    public static final String INCOME_TABLE = "Income";
+    public static final String EXPENSE = "Expense";
+    public static final String INCOME = "Income";
     
     // columns
     public static final String NAME = "name";

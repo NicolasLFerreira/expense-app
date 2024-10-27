@@ -2,22 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Database;
+package Enums;
+
+import Database.SqlQueryParameters;
 
 /**
  *
  * @author nicol
  * 
- * Enum used for configuring the dbstorage
- * 
+ * The two types of FinancialRecord
  */
-public enum TableType {
-    EXPENSE(SqlQueryParameters.EXPENSE_TABLE),
-    INCOME(SqlQueryParameters.INCOME_TABLE);
+public enum FinancialRecordType {
+    EXPENSE(SqlQueryParameters.EXPENSE),
+    INCOME(SqlQueryParameters.INCOME);
 
     private final String value;
 
-    TableType(String value) {
+    FinancialRecordType(String value) {
         this.value = value;
     }
 
@@ -25,3 +26,4 @@ public enum TableType {
         return value;
     }
 }
+

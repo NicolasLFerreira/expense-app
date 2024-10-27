@@ -5,7 +5,7 @@
 package Expenses;
 
 import Database.DatabaseManager;
-import Database.TableType;
+import Enums.FinancialRecordType;
 
 /**
  *
@@ -14,14 +14,14 @@ import Database.TableType;
  * ExpenseManager class to manage all expenses
  */
 public final class BudgetManager {
-
+    
     private final Storage expenses;  // Stores the expenses
     private final Storage incomes; // Stores the incomes
 
     public BudgetManager() {
         // Configures the storage to be the db one
-        this.expenses = new DBStorage(new DatabaseManager(), TableType.EXPENSE);
-        this.incomes = new DBStorage(new DatabaseManager(), TableType.INCOME);
+        this.expenses = new DBStorage(new DatabaseManager(), FinancialRecordType.EXPENSE);
+        this.incomes = new DBStorage(new DatabaseManager(), FinancialRecordType.INCOME);
     }
 
     // Public methods
@@ -29,12 +29,22 @@ public final class BudgetManager {
         return calculateTotalIncomes() - calculateTotalExpenses();
     }
 
-    // add methods
-    public void addIncome(FinancialRecord income) {
+    // handles the storage of a financial record with the FinancialRecordType
+    public void addRecord(FinancialRecord fr, FinancialRecordType type) {
+        if (type == FinancialRecordType.EXPENSE) {
+            addExpense(fr);
+        }
+        if (type == FinancialRecordType.INCOME) {
+            addIncome(fr);
+        }
+    }
+    
+    // internal usage
+    private void addIncome(FinancialRecord income) {
         this.incomes.set(income);
     }
-
-    public void addExpense(FinancialRecord expense) {
+    
+    private void addExpense(FinancialRecord expense) {
         expenses.set(expense);  // Adds expense to storage
     }
 
@@ -42,7 +52,7 @@ public final class BudgetManager {
     public FinancialRecord getExpense(String name) {
         return expenses.get(name);
     }
-
+    
     public FinancialRecord getIncome(String name) {
         return incomes.get(name);
     }
@@ -53,7 +63,7 @@ public final class BudgetManager {
             System.out.println("Couldn't find \"" + name + "\"");
         }
     }
-
+    
     public void deleteIncome(String name) {
         if (!incomes.remove(name)) {
             System.out.println("Couldn't find \"" + name + "\"");
@@ -68,7 +78,7 @@ public final class BudgetManager {
         }
         return totalExpenses;
     }
-
+    
     public double calculateTotalIncomes() {
         double totalIncomes = 0.0;
         for (FinancialRecord income : incomes.getArray()) {  // Loop through expenses to calculate total
@@ -76,20 +86,20 @@ public final class BudgetManager {
         }
         return totalIncomes;
     }
-
+    
     public FinancialRecord[] getExpenses() {
         return expenses.getArray();
     }
-
+    
     public FinancialRecord[] getIncomes() {
         return incomes.getArray();
     }
-
+    
     public void clearExpenses() {
         expenses.clear(); // Assuming you're using a List<Expense> called expenses
     }
     
-    public void clearIncomes(){
+    public void clearIncomes() {
         incomes.clear();
     }
 }

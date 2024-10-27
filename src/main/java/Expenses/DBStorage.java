@@ -5,7 +5,7 @@
 package Expenses;
 
 import Database.Manager;
-import Database.TableType;
+import Enums.FinancialRecordType;
 import Database.SqlQueryParameters;
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class DBStorage extends Storage implements AutoCloseable {
     private final Connection connection;
 
     // dependency injection of the dbmanager
-    public DBStorage(Manager dbManager, TableType type) {
+    public DBStorage(Manager dbManager, FinancialRecordType type) {
         super(type);
         this.dbManager = dbManager;
         this.connection = dbManager.getConnection();

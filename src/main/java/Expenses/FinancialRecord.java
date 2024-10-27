@@ -26,7 +26,7 @@ public class FinancialRecord {
         }
     }
 
-    // access methods
+    // get methods
     public String getName() {
         return name;
     }
@@ -35,6 +35,7 @@ public class FinancialRecord {
         return amount;
     }
 
+    // set methods
     public void setName(String name) {
         this.name = name;
     }

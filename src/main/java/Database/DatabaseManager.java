@@ -4,6 +4,7 @@
  */
 package Database;
 
+import Enums.FinancialRecordType;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,15 +33,15 @@ public class DatabaseManager implements Manager {
             connection = DriverManager.getConnection(URL);
             // calls the initialiser function which attemps to create the necessary
             // tables if they don't already exist
-            initTable(TableType.EXPENSE);
-            initTable(TableType.INCOME);
+            initTable(FinancialRecordType.EXPENSE);
+            initTable(FinancialRecordType.INCOME);
         } catch (SQLException ex) {
             System.err.println("Failed to connect to the database.");
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void initTable(TableType type) {
+    private void initTable(FinancialRecordType type) {
         try ( Statement statement = connection.createStatement()) {
             // sql code to generate the table for a table
             String sql = "CREATE TABLE " + type.getValue() + " ("

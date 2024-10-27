@@ -10,27 +10,31 @@ import Expenses.*;
  *
  * @author nicol
  */
-public class ConsoleDebugger {
+public class ConsoleLogger {
 
-    public static void main(String[] args) {
-        BudgetManager bm = new BudgetManager();
-        
-        double budget = bm.getBudget();
-        
-        FinancialRecord[] expenses = bm.getExpenses();
-        FinancialRecord[] incomes = bm.getIncomes();
-        
+    private final BudgetManager budgetManager;
+    
+    public ConsoleLogger(BudgetManager budgetManager){
+        this.budgetManager = budgetManager;
+    }
+    
+    public void log() {
+        double budget = budgetManager.getBudget();
+
+        FinancialRecord[] expenses = budgetManager.getExpenses();
+        FinancialRecord[] incomes = budgetManager.getIncomes();
+
         System.out.println("Budget: " + budget);
-        
+
         System.out.println("");
-        
-        for (int i = 0; i < expenses.length; i++){
+
+        for (int i = 0; i < expenses.length; i++) {
             System.out.println("Expense " + i + ": " + expenses[i]);
         }
-        
+
         System.out.println("");
-        
-        for (int i = 0; i < incomes.length; i++){
+
+        for (int i = 0; i < incomes.length; i++) {
             System.out.println("Income " + i + ": " + incomes[i]);
         }
     }
