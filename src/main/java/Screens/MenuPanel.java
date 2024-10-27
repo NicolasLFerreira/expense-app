@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * 
- * @author will, edited by nicolas
- * Main application window for the Student Budget Calculator. This class manages
- * the main interface using JTabbedPane for navigation.
+ *
+ * @author will, edited by nicolas Main application window for the Student
+ * Budget Calculator. This class manages the main interface using JTabbedPane
+ * for navigation.
  */
 public class MenuPanel extends JFrame {
 
@@ -17,10 +17,12 @@ public class MenuPanel extends JFrame {
     private final HelpPanel helpPanel;     // Panel displaying the help information
     private final EntryPanel incomeEntryPanel;       // Panel for entering income
     private final EntryPanel expenseEntryPanel; // Panel for entering expenses
-    private final ExpenseListPanel expenseListPanel;   // Panel for displaying the list of expenses
+    private final ListPanel expenseListPanel;   // Panel for displaying the list of expenses
+    private final ListPanel incomeListPanel;   // Panel for displaying the list of income sources
 
     /**
      * Constructor that initializes the main application window.
+     *
      * @param budgetManager
      */
     public MenuPanel(BudgetManager budgetManager) {
@@ -32,7 +34,8 @@ public class MenuPanel extends JFrame {
         // Display screens
         dashboardPanel = new DashboardPanel(budgetManager);  // Budget screen for adding and viewing expenses
         helpPanel = new HelpPanel();  // Help screen with user instructions
-        expenseListPanel = new ExpenseListPanel(budgetManager);   // Panel for displaying expenses
+        expenseListPanel = new ListPanel(budgetManager, FinancialRecordType.EXPENSE);
+        incomeListPanel = new ListPanel(budgetManager, FinancialRecordType.INCOME);
 
         // object used for updating other panels
         UpdateTrigger updateTrigger = new UpdateTrigger(dashboardPanel, expenseListPanel);

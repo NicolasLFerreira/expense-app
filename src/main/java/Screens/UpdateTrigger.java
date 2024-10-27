@@ -7,18 +7,21 @@ package Screens;
 /**
  *
  * @author nicol
+ *
+ * Class handling updates of dashboard and list panels
  */
 public class UpdateTrigger {
+
     private final DashboardPanel dashboardPanel;
-    private final ExpenseListPanel expenseListPanel;
-    
-    public UpdateTrigger(DashboardPanel dashboardPanel, ExpenseListPanel expenseListPanel){
+    private final ListPanel listPanel;
+
+    public UpdateTrigger(DashboardPanel dashboardPanel, ListPanel listPanel) {
         this.dashboardPanel = dashboardPanel;
-        this.expenseListPanel = expenseListPanel;
+        this.listPanel = listPanel;
     }
-    
-    public void update(){
+
+    public void update() {
         dashboardPanel.updateDashboard();
-        expenseListPanel.refreshList();
+        listPanel.refreshList();
     }
 }

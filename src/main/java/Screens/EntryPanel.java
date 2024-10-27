@@ -8,7 +8,7 @@ import Expenses.FinancialRecord;
 
 /**
  *
- * @author nicolas
+ * @author will's UI and code as base, refactored by nicolas
  *
  * EntryPanel for general use for both the expense and income entry panels.
  * To be configured via the constructor using a FinancialRecordType

@@ -1,16 +1,16 @@
 package Screens;
 
+import Enums.FinancialRecordType;
 import javax.swing.*;
 import java.awt.*;
 import Expenses.BudgetManager;
 
 /**
  *
- * @author will
- * 
+ * @author will, edited by nicolas
+ *
  * Displays the statistics of expenses and incomes
  */
-
 public class DashboardPanel extends JPanel {
 
     private final BudgetManager budgetManager;
@@ -48,8 +48,8 @@ public class DashboardPanel extends JPanel {
         cardsPanel.setOpaque(false);
 
         // Add metric cards
-        double totalIncome = budgetManager.calculateTotalIncomes();
-        double totalExpenses = budgetManager.calculateTotalExpenses();
+        double totalExpenses = budgetManager.getTotal(FinancialRecordType.EXPENSE);
+        double totalIncome = budgetManager.getTotal(FinancialRecordType.INCOME);
         double budget = budgetManager.getBudget();
 
         cardsPanel.add(createMetricCard("Total Income", totalIncome, "↑", new Color(46, 204, 113)));
@@ -127,8 +127,8 @@ public class DashboardPanel extends JPanel {
         remove(summaryPanel);
 
         // Recreate components with updated values
-        double totalIncome = budgetManager.calculateTotalIncomes();
-        double totalExpenses = budgetManager.calculateTotalExpenses();
+        double totalExpenses = budgetManager.getTotal(FinancialRecordType.EXPENSE);
+        double totalIncome = budgetManager.getTotal(FinancialRecordType.INCOME);
         double budget = budgetManager.getBudget();
 
         // Cards Panel
