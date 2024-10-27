@@ -6,7 +6,6 @@ package Program;
 
 import Database.DatabaseManager;
 import Expenses.*;
-import File.*;
 import Screens.*;
 import javax.swing.JFrame;
 
@@ -21,9 +20,6 @@ import javax.swing.JFrame;
 public class StudentBudgetApp {
 
     public static void main(String[] args) {
-        // Ensure necessary files are created or available
-        FileManager.ensure();
-
         // Create BudgetManager to manage expenses
         BudgetManager budgetManager = new BudgetManager(new DBExpenseStorage(new DatabaseManager()));
 
