@@ -58,16 +58,32 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
 
     @Override
     public void set(Expense expense) {
-        // set covers the insert and put sql commands
-        // the merge keyword can do both: https://db.apache.org/derby/docs/10.11/ref/rrefsqljmerge.html
-        String query = "INSERT INTO EXPENSE (KEY, amount) VALUES (?, ?)";
+        
+        // update command
+        String queryU = "UPDATE EXPENSE SET amount = ? WHERE name = ?";
+        
+        // insert command
+        String queryI = "INSERT INTO EXPENSE (name, amount) VALUES (?, ?)";
+        
+        try {
+            int rowsAffected;
+            try ( // performs an update query
+                    PreparedStatement statementU = connection.prepareStatement(queryU)) {
+                statementU.setDouble(1, expense.getAmount());
+                statementU.setString(2, expense.getName());
+                // execute command and return number of affected rows to check
+                // if it worked
+                rowsAffected = statementU.executeUpdate();
+            }
 
-        try ( PreparedStatement statement = connection.prepareStatement(query)) {
-            // sets the name in the query
-            statement.setString(1, expense.getName());
-            // sets the amount
-            statement.setDouble(2, expense.getAmount());
-            statement.executeUpdate();
+            // if nothing updated does an insert
+            if (rowsAffected == 0) {
+                try (PreparedStatement statementI = connection.prepareStatement(queryI)) {
+                    statementI.setString(1, expense.getName());
+                    statementI.setDouble(2, expense.getAmount());
+                    statementI.executeUpdate();
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -103,8 +119,8 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
 
     @Override
     public void clear() {
-        // from what I found online this should work to delete all rows from a table
-        // gotta test before tho
+        // from what I found online this should do the trick
+        // gotta test to see if it works
 
         String query = "DELETE FROM EXPENSE";
 
@@ -122,17 +138,17 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
 
         String query = "SELECT * FROM EXPENSE";
 
-        try ( PreparedStatement statement = connection.prepareStatement(query) ) {
+        try ( PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet rs = statement.executeQuery();
-            
+
             // loops through response
-            while (rs.next()){
+            while (rs.next()) {
                 list.add(new Expense(rs.getString("NAME"), rs.getDouble("AMOUNT")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return list.toArray(Expense[]::new);
     }
 

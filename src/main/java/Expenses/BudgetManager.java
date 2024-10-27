@@ -19,8 +19,8 @@ public final class BudgetManager {
     private final Storage expenses;  // Stores the expenses
     private double income;
 
-    public BudgetManager() {
-        this.expenses = new DBExpenseStorage(new DatabaseManager());
+    public BudgetManager(Storage storage) {
+        this.expenses = storage;
 
         loadExpenses();
         loadIncome();
@@ -73,7 +73,7 @@ public final class BudgetManager {
         FileManager.saveExpenses(ExpenseParser.serialise(expenses));
     }
 
-    private void loadExpenses() {
+    public void loadExpenses() {
         expenses.setAll(ExpenseParser.parse(FileManager.loadExpenses()));
     }
 
@@ -83,5 +83,13 @@ public final class BudgetManager {
 
     private void loadIncome() {
         income = FileManager.loadIncome();
+    }
+
+    public Expense[] getExpenses() {
+        return expenses.getArray();
+    }
+
+    public void clearExpenses() {
+        expenses.clear(); // Assuming you're using a List<Expense> called expenses
     }
 }
