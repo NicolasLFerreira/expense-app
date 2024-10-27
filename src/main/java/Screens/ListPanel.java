@@ -141,7 +141,6 @@ public class ListPanel extends JPanel implements Updateable {
             listModel.addElement(String.format("%s: $%.2f",
                     record.getName(),
                     record.getAmount()));  // Add each record to the list
-            total += record.getAmount();  // Calculate the total amount
         }
 
         totalLabel.setText(String.format("Total " + frType.getValue() + " amount: $%.2f", total));  // Update total label
