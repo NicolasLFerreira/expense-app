@@ -5,17 +5,19 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Main application window for the Student Budget Calculator.
- * This class manages the main interface using JTabbedPane for navigation.
+ * Main application window for the Student Budget Calculator. This class manages
+ * the main interface using JTabbedPane for navigation.
  */
 public class MenuScreenGUI extends JFrame {
+
     private final BudgetManager budgetManager;  // Manages expenses in the application
-    private final DashboardPanel dashBoard; // Panel for managing budget and expenses
-    private final HelpScreenGUI helpScreen;     // Panel displaying the help information
-    private final IncomePanel incomePanel;       // Panel for entering income
+    private final DashboardPanel dashBoardPanel; // Panel for managing budget and expenses
+    private final HelpScreenGUI helpScreenPanel;     // Panel displaying the help information
+    private final IncomePanel incomeEntryPanel;       // Panel for entering income
     private final ExpenseEntryPanel expenseEntryPanel; // Panel for entering expenses
     private final ExpenseListPanel expenseListPanel;   // Panel for displaying the list of expenses
-     private final MenuScreenGUI menuScreen = null;
+    private final MenuScreenGUI menuScreen = null;
+
     /**
      * Constructor that initializes the main application window.
      */
@@ -27,26 +29,32 @@ public class MenuScreenGUI extends JFrame {
 
         this.budgetManager = budgetManager;  // Use the provided BudgetManager
 
-        // Initialize screens
-        dashBoard = new DashboardPanel(budgetManager);  // Budget screen for adding and viewing expenses
-        helpScreen = new HelpScreenGUI();  // Help screen with user instructions
-        incomePanel = new IncomePanel(budgetManager); // New panel for entering income
-        expenseEntryPanel = new ExpenseEntryPanel(budgetManager); // Panel for entering expenses
+        // Display screens
+        dashBoardPanel = new DashboardPanel(budgetManager);  // Budget screen for adding and viewing expenses
+        helpScreenPanel = new HelpScreenGUI();  // Help screen with user instructions
         expenseListPanel = new ExpenseListPanel(budgetManager);   // Panel for displaying expenses
+
+        // object used for updating other panels
+        UpdateTrigger updateTrigger = new UpdateTrigger(dashBoardPanel, expenseListPanel);
+
+        // Input screens// New panel for entering income
+        expenseEntryPanel = new ExpenseEntryPanel(budgetManager, updateTrigger); // Panel for entering expenses
+        incomeEntryPanel = new IncomePanel(budgetManager, updateTrigger); // New panel for entering income
 
         // Create JTabbedPane for navigation
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Dashboard", dashBoard);
-        tabbedPane.addTab("Income", incomePanel);
+        tabbedPane.addTab("Dashboard", dashBoardPanel);
+        tabbedPane.addTab("Income", incomeEntryPanel);
         tabbedPane.addTab("Expense Entry", expenseEntryPanel);
         tabbedPane.addTab("Expense List", expenseListPanel);
-        tabbedPane.addTab("Help", helpScreen);
+        tabbedPane.addTab("Help", helpScreenPanel);
 
         // Add the tabbed pane to the frame (window)
         add(tabbedPane);
     }
+
     public void updateDashboard() {
-    dashBoard.revalidate();
-    dashBoard.repaint();
-}
+        dashBoardPanel.revalidate();
+        dashBoardPanel.repaint();
+    }
 }
