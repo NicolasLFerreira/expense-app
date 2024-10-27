@@ -1,4 +1,3 @@
-
 package Screens;
 
 import javax.swing.*;
@@ -6,7 +5,8 @@ import javax.swing.border.*;
 import java.awt.*;
 
 public class UIConstants {
- // Colors
+    // Colors
+
     public static final Color BACKGROUND_COLOR = new Color(245, 247, 250);
     public static final Color CARD_COLOR = Color.WHITE;
     public static final Color PRIMARY_COLOR = new Color(70, 130, 180);
@@ -36,7 +36,7 @@ public class UIConstants {
 
     public static final Font HEADING_FONT = new Font("Arial", Font.BOLD, 24);
     public static final Color SUCCESS_HOVER_COLOR = new Color(80, 200, 120);
-    
+
     // Create a method for consistent card styling
     public static JPanel createCard() {
         JPanel card = new JPanel();

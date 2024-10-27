@@ -8,19 +8,19 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author williamblake
- * Help screen for the application providing basic instructions on how to use the Student Budget Calculator.
+ * @author williamblake Help screen for the application providing basic
+ * instructions on how to use the Student Budget Calculator.
  */
-
 public class HelpScreenGUI extends JPanel {
+
     public HelpScreenGUI() {
         setLayout(new BorderLayout(UIConstants.PADDING_MEDIUM, UIConstants.PADDING_MEDIUM));
         setBackground(UIConstants.BACKGROUND_COLOR);
         setBorder(BorderFactory.createEmptyBorder(
-            UIConstants.PADDING_LARGE,
-            UIConstants.PADDING_LARGE,
-            UIConstants.PADDING_LARGE,
-            UIConstants.PADDING_LARGE
+                UIConstants.PADDING_LARGE,
+                UIConstants.PADDING_LARGE,
+                UIConstants.PADDING_LARGE,
+                UIConstants.PADDING_LARGE
         ));
 
         // Header
@@ -34,14 +34,14 @@ public class HelpScreenGUI extends JPanel {
 
         // Create styled help content
         String[][] helpSections = {
-            {"Getting Started", 
-             "Welcome to the Student Budget Calculator! This application helps you track your expenses and manage your budget effectively."},
-            {"Adding Income", 
-             "1. Navigate to the Income tab\n2. Enter your income amount\n3. Click 'Add Income' to record it. After you close the application the incomes will be added. If you wish to clear income, simply press 'Clear Incomes' and after closing the program will have cleared your income."},
-            {"Managing Expenses", 
-             "1. Go to the Expenses tab\n2. Enter expense description and amount\n3. Click 'Submit' to record the expense"},
-            {"Viewing Reports", 
-             "1. Check the Dashboard for an overview\n2. View detailed expense history in the Expenses List\n3. Monitor your budget status"}
+            {"Getting Started",
+                "Welcome to the Student Budget Calculator! This application helps you track your expenses and manage your budget effectively."},
+            {"Adding Income",
+                "1. Navigate to the Income tab\n2. Enter your income amount\n3. Click 'Add Income' to record it. After you close the application the incomes will be added. If you wish to clear income, simply press 'Clear Incomes' and after closing the program will have cleared your income."},
+            {"Managing Expenses",
+                "1. Go to the Expenses tab\n2. Enter expense description and amount\n3. Click 'Submit' to record the expense"},
+            {"Viewing Reports",
+                "1. Check the Dashboard for an overview\n2. View detailed expense history in the Expenses List\n3. Monitor your budget status"}
         };
 
         JPanel contentPanel = new JPanel();
@@ -53,10 +53,10 @@ public class HelpScreenGUI extends JPanel {
             sectionPanel.setLayout(new BorderLayout());
             sectionPanel.setBackground(UIConstants.CARD_COLOR);
             sectionPanel.setBorder(BorderFactory.createEmptyBorder(
-                UIConstants.PADDING_MEDIUM, 
-                UIConstants.PADDING_MEDIUM, 
-                UIConstants.PADDING_MEDIUM, 
-                UIConstants.PADDING_MEDIUM
+                    UIConstants.PADDING_MEDIUM,
+                    UIConstants.PADDING_MEDIUM,
+                    UIConstants.PADDING_MEDIUM,
+                    UIConstants.PADDING_MEDIUM
             ));
 
             JLabel sectionTitle = new JLabel(section[0]);
@@ -71,10 +71,10 @@ public class HelpScreenGUI extends JPanel {
             sectionContent.setEditable(false);
             sectionContent.setBackground(UIConstants.CARD_COLOR);
             sectionContent.setBorder(BorderFactory.createEmptyBorder(
-                UIConstants.PADDING_SMALL, 
-                0, 
-                0, 
-                0
+                    UIConstants.PADDING_SMALL,
+                    0,
+                    0,
+                    0
             ));
 
             sectionPanel.add(sectionTitle, BorderLayout.NORTH);

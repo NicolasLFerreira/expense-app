@@ -1,4 +1,4 @@
-package Screens; 
+package Screens;
 
 import javax.swing.*;
 import javax.swing.border.*;
@@ -83,25 +83,26 @@ public class ExpenseListPanel extends JPanel {
         clearButton.addActionListener(e -> clearAllExpenses());
         return clearButton;
     }
-   // Clears all expenses after user confirmation and refreshes the list
+    // Clears all expenses after user confirmation and refreshes the list
+
     private void clearAllExpenses() {
         // Show a confirmation dialog before clearing all expenses
         int result = JOptionPane.showConfirmDialog(
-            this,
-            "Are you sure you want to clear all expenses? This action cannot be undone.",
-            "Confirm Clear All",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE
+                this,
+                "Are you sure you want to clear all expenses? This action cannot be undone.",
+                "Confirm Clear All",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
         );
 
         if (result == JOptionPane.YES_OPTION) {  // If user confirms
             budgetManager.clearExpenses();  // Clear all expenses from BudgetManager
             refreshList();  // Refresh the list to update the UI
-            JOptionPane.showMessageDialog(  // Show success message
-                this,
-                "All expenses have been cleared.",
-                "Success",
-                JOptionPane.INFORMATION_MESSAGE
+            JOptionPane.showMessageDialog( // Show success message
+                    this,
+                    "All expenses have been cleared.",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE
             );
         }
     }
@@ -113,9 +114,9 @@ public class ExpenseListPanel extends JPanel {
 
         // Loop through expenses in BudgetManager and add them to the list model
         for (FinancialRecord expense : budgetManager.getExpenses()) {
-            listModel.addElement(String.format("%s: $%.2f", 
-                expense.getName(), 
-                expense.getAmount()));  // Add each expense to the list
+            listModel.addElement(String.format("%s: $%.2f",
+                    expense.getName(),
+                    expense.getAmount()));  // Add each expense to the list
             total += expense.getAmount();  // Calculate the total expenses
         }
 
@@ -124,6 +125,7 @@ public class ExpenseListPanel extends JPanel {
 
     // Custom cell renderer for the expense list to customize the appearance of each list item
     private class ExpenseListCellRenderer extends DefaultListCellRenderer {
+
         @Override
         public Component getListCellRendererComponent(
                 JList<?> list, Object value, int index,
@@ -144,7 +146,7 @@ public class ExpenseListPanel extends JPanel {
                 label.setBackground(Color.WHITE);  // Set background color for unselected items
                 label.setForeground(UIConstants.TEXT_COLOR);  // Set text color for unselected items
             }
-        return label;
+            return label;
         }
     }
-}  
+}

@@ -5,6 +5,7 @@ import java.awt.*;
 import Expenses.BudgetManager;
 
 public class DashboardPanel extends JPanel {
+
     private final BudgetManager budgetManager;
     private static final Color BACKGROUND_COLOR = new Color(245, 247, 250);
     private static final Color CARD_COLOR = Color.WHITE;
@@ -43,7 +44,7 @@ public class DashboardPanel extends JPanel {
         double totalIncome = budgetManager.calculateTotalIncomes();
         double totalExpenses = budgetManager.calculateTotalExpenses();
         double budget = budgetManager.getBudget();
-        
+
         cardsPanel.add(createMetricCard("Total Income", totalIncome, "↑", new Color(46, 204, 113)));
         cardsPanel.add(createMetricCard("Total Expenses", totalExpenses, "↓", new Color(231, 76, 60)));
         cardsPanel.add(createMetricCard("Budget", budget, "", ACCENT_COLOR));
@@ -60,8 +61,8 @@ public class DashboardPanel extends JPanel {
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setBackground(CARD_COLOR);
         card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
-            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+                BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)
         ));
 
         // Title
@@ -88,8 +89,8 @@ public class DashboardPanel extends JPanel {
         summaryPanel.setLayout(new BoxLayout(summaryPanel, BoxLayout.Y_AXIS));
         summaryPanel.setBackground(CARD_COLOR);
         summaryPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
-            BorderFactory.createEmptyBorder(15, 15, 15, 15)
+                BorderFactory.createLineBorder(new Color(230, 230, 230), 1),
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)
         ));
 
         // Calculate remaining budget
@@ -112,32 +113,33 @@ public class DashboardPanel extends JPanel {
         return summaryPanel;
     }
     // Update dashboard
-public void updateDashboard() {
-    // Remove existing components
-    remove(cardsPanel);
-    remove(summaryPanel);
 
-    // Recreate components with updated values
-    double totalIncome = budgetManager.calculateTotalIncomes();
-    double totalExpenses = budgetManager.calculateTotalExpenses();
-    double budget = budgetManager.getBudget();
+    public void updateDashboard() {
+        // Remove existing components
+        remove(cardsPanel);
+        remove(summaryPanel);
 
-    // Cards Panel
-    cardsPanel = new JPanel(new GridLayout(1, 3, 20, 0));
-    cardsPanel.setOpaque(false);
+        // Recreate components with updated values
+        double totalIncome = budgetManager.calculateTotalIncomes();
+        double totalExpenses = budgetManager.calculateTotalExpenses();
+        double budget = budgetManager.getBudget();
 
-    cardsPanel.add(createMetricCard("Total Income", totalIncome, "↑", new Color(46, 204, 113)));
-    cardsPanel.add(createMetricCard("Total Expenses", totalExpenses, "↓", new Color(231, 76, 60)));
-    cardsPanel.add(createMetricCard("Budget", budget, "", ACCENT_COLOR));
+        // Cards Panel
+        cardsPanel = new JPanel(new GridLayout(1, 3, 20, 0));
+        cardsPanel.setOpaque(false);
 
-    add(cardsPanel, BorderLayout.CENTER);
+        cardsPanel.add(createMetricCard("Total Income", totalIncome, "↑", new Color(46, 204, 113)));
+        cardsPanel.add(createMetricCard("Total Expenses", totalExpenses, "↓", new Color(231, 76, 60)));
+        cardsPanel.add(createMetricCard("Budget", budget, "", ACCENT_COLOR));
 
-    // Add summary panel
-    summaryPanel = createSummaryPanel(totalIncome, totalExpenses);
-    add(summaryPanel, BorderLayout.SOUTH);
+        add(cardsPanel, BorderLayout.CENTER);
 
-    // Revalidate and repaint
-    revalidate();
-    repaint();
-}
+        // Add summary panel
+        summaryPanel = createSummaryPanel(totalIncome, totalExpenses);
+        add(summaryPanel, BorderLayout.SOUTH);
+
+        // Revalidate and repaint
+        revalidate();
+        repaint();
+    }
 }
