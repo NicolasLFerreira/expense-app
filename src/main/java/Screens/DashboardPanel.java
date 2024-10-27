@@ -4,6 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import Expenses.BudgetManager;
 
+/**
+ *
+ * @author will
+ * 
+ * Displays the statistics of expenses and incomes
+ */
+
 public class DashboardPanel extends JPanel {
 
     private final BudgetManager budgetManager;
