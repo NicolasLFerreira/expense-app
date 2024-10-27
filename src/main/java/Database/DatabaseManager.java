@@ -33,9 +33,9 @@ public class DatabaseManager implements Manager {
             // calls the initialiser function which attemps to create the necessary
             // tables if they don't already exist
             initializeDatabase();
-        } catch (SQLException e) {
+        } catch (SQLException ex) {
             System.err.println("Failed to connect to the database.");
-            e.printStackTrace();
+            Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
