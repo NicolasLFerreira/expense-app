@@ -4,6 +4,9 @@
  */
 package Expenses;
 
+import Database.DatabaseManager;
+import Database.TableType;
+
 /**
  *
  * @author will, edited by nicolas
@@ -13,74 +16,64 @@ package Expenses;
 public final class BudgetManager {
 
     private final Storage expenses;  // Stores the expenses
-    private double income;
+    private final Storage incomes; // Stores the incomes
 
-    public BudgetManager(Storage storage) {
-        this.expenses = storage;
-
-        // loads everything
-        loadExpenses();
-//        loadIncome();
+    public BudgetManager() {
+        // Configures the storage to be the db one
+        this.expenses = new DBExpenseStorage(new DatabaseManager(), TableType.EXPENSE);
+        this.incomes = new DBExpenseStorage(new DatabaseManager(), TableType.INCOME);
     }
 
     // Public methods
     public double getBudget() {
-        return income - calculateTotalExpenses();
+        return calculateTotalExpenses() - calculateTotalIncomes();
     }
 
-    public double getIncome() {
-        return income;
+    // add methods
+    public void addIncome(FinancialRecord income) {
+        this.incomes.set(income);
     }
 
-    public void setIncome(double income) {
-        this.income = income;
-//        saveIncome();
-    }
-
-    public void addExpense(Expense expense) {
+    public void addExpense(FinancialRecord expense) {
         expenses.set(expense);  // Adds expense to storage
     }
 
+    // delete methods
     public void deleteExpense(String name) {
         if (!expenses.remove(name)) {
             System.out.println("Couldn't find \"" + name + "\"");
         }
     }
-
-    public void displayAllExpenses() {
-        System.out.println("All Expenses:");
-        for (Expense expense : expenses.getArray()) {  // Loop through expenses and display each
-            expense.displayExpense();
+    
+    public void deleteIncome(String name){
+        if (!incomes.remove(name)) {
+            System.out.println("Couldn't find \"" + name + "\"");
         }
     }
 
-    // Private methods
+    // calculate totals
     private double calculateTotalExpenses() {
         double totalExpenses = 0.0;
-        for (Expense expense : expenses.getArray()) {  // Loop through expenses to calculate total
+        for (FinancialRecord expense : expenses.getArray()) {  // Loop through expenses to calculate total
             totalExpenses += expense.getAmount();
         }
         return totalExpenses;
     }
-
-    public void loadExpenses() {
-        expenses.setAll(expenses.getArray());
+    
+    private double calculateTotalIncomes() {
+        double totalIncomes = 0.0;
+        for (FinancialRecord income : incomes.getArray()) {  // Loop through expenses to calculate total
+            totalIncomes += income.getAmount();
+        }
+        return totalIncomes;
     }
 
-    // Income
-    
-//    private void saveIncome() {
-//        FileManager.saveIncome(income);
-//    }
-//
-//    private void loadIncome() {
-//        income = FileManager.loadIncome();
-//    }
-
-    // Other
-    
-    public Expense[] getExpenses() {
+    public FinancialRecord[] getExpenses() {
         return expenses.getArray();
+    }
+    
+    public FinancialRecord[] getIncome(){
+        return incomes.getArray();
     }
 
     public void clearExpenses() {

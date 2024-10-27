@@ -21,7 +21,7 @@ public class StudentBudgetApp {
 
     public static void main(String[] args) {
         // Create BudgetManager to manage expenses
-        BudgetManager budgetManager = new BudgetManager(new DBExpenseStorage(new DatabaseManager()));
+        BudgetManager budgetManager = new BudgetManager();
 
         // Create JFrame for the application window
         JFrame frame = new JFrame("Student Budget Calculator");

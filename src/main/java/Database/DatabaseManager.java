@@ -32,20 +32,21 @@ public class DatabaseManager implements Manager {
             connection = DriverManager.getConnection(URL);
             // calls the initialiser function which attemps to create the necessary
             // tables if they don't already exist
-            initializeDatabase();
+            initTable(TableType.EXPENSE);
+            initTable(TableType.INCOME);
         } catch (SQLException ex) {
             System.err.println("Failed to connect to the database.");
             Logger.getLogger(DatabaseManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    private void initializeDatabase() {
-        try ( Statement stmt = connection.createStatement()) {
-            // sql code to generate the table for expenses
-            String sql = "CREATE TABLE EXPENSE ("
-                    + "NAME VARCHAR(255) NOT NULL PRIMARY KEY, "
-                    + "AMOUNT DOUBLE NOT NULL)";
-            stmt.executeUpdate(sql);
+    private void initTable(TableType type) {
+        try ( Statement statement = connection.createStatement()) {
+            // sql code to generate the table for a table
+            String sql = "CREATE TABLE " + type.getValue() + " ("
+                    + Tables.NAME + " VARCHAR(255) NOT NULL PRIMARY KEY, "
+                    + Tables.AMOUNT + " DOUBLE NOT NULL)";
+            statement.executeUpdate(sql);
         } catch (SQLException ex) {
             // an error is given if the table already exists
             // so I found this solution online to deal with it

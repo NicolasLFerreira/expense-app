@@ -4,23 +4,31 @@
  */
 package Expenses;
 
+import Database.TableType;
+
 /**
  *
  * @author nicolas
  *
  * abstracts the access to a db
  */
-public interface Storage {
+public abstract class Storage {
+    
+    private final String table;
+    
+    public Storage(TableType type){
+        this.table = type.getValue();
+    }
+    
+    public abstract FinancialRecord get(String name);
 
-    public Expense get(String name);
+    public abstract void set(FinancialRecord record);
 
-    public void set(Expense expense);
+    public abstract void setAll(FinancialRecord[] records);
 
-    public void setAll(Expense[] expenses);
+    public abstract boolean remove(String name);
 
-    public boolean remove(String name);
+    public abstract void clear();
 
-    public void clear();
-
-    public Expense[] getArray();
+    public abstract FinancialRecord[] getArray();
 }

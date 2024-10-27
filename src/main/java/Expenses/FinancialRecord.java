@@ -6,16 +6,16 @@ package Expenses;
 
 /**
  *
- * @author will
+ * @author nicolas
  *
- * Stores an expense
+ * Stores a financial record (expense or income);
  */
-public class Expense {
+public class FinancialRecord {
 
     private String name;
     private double amount;
 
-    public Expense(String name, double amount) {
+    public FinancialRecord(String name, double amount) {
         this.name = name;
 
         if (amount < 0) {

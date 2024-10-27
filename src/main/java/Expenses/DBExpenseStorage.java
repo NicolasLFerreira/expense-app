@@ -5,6 +5,8 @@
 package Expenses;
 
 import Database.Manager;
+import Database.TableType;
+import Database.Tables;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,38 +18,47 @@ import java.util.logging.Logger;
  *
  * The new storage implementation. It implements the Storage interface so that
  * the application logic doesn't change when we change the implementation.
+ * 
+ * 
+ * This class is configurable through the Manager and TableType passed in the constructor.
+ * 
+ * The manager allows to use different DatabaseManager implementations just in case,
+ * and the TableType allows to reutilise the sql queries for both Expense and Income
+ * since they have the same values to be stored but still have to be kept separate.
  *
  * Implements autoclosable to deal with the db connection when the object goes
  * unused
+ * @param <T> the table type;
  */
-public class DBExpenseStorage implements Storage, AutoCloseable {
+public class DBExpenseStorage extends Storage implements AutoCloseable {
 
     private final Manager dbManager;
     // i'm making the constructor handle the connection creation instead doing it in each method like before
     private final Connection connection;
 
     // dependency injection of the dbmanager
-    public DBExpenseStorage(Manager dbManager) {
+    public DBExpenseStorage(Manager dbManager, TableType type) {
+        super(type);
         this.dbManager = dbManager;
         this.connection = dbManager.getConnection();
     }
 
     // Note for self: ? is where the parameters will be inserted in a query
     @Override
-    public Expense get(String name) {
+    public FinancialRecord get(String name) {
 
-        String query = "SELECT * FROM EXPENSE WHERE NAME = ?";
+        String query = "SELECT * FROM" + Tables.EXPENSE_TABLE + "WHERE NAME = ?";
 
         // setups the statement
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
 
             // adds the name to the statement
-            statement.setString(1, name);
+            statement.setString(2, name);
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
                 double amount = result.getDouble("AMOUNT");
-                return new Expense(name, amount);
+                return new FinancialRecord(name, amount);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
@@ -57,7 +68,7 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public void set(Expense expense) {
+    public void set(FinancialRecord expense) {
         
         // update command
         String queryU = "UPDATE EXPENSE SET amount = ? WHERE name = ?";
@@ -90,9 +101,9 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public void setAll(Expense[] expenses) {
+    public void setAll(FinancialRecord[] expenses) {
         // just calls the set for each item of the array
-        for (Expense expense : expenses) {
+        for (FinancialRecord expense : expenses) {
             set(expense);
         }
     }
@@ -132,9 +143,9 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
     }
 
     @Override
-    public Expense[] getArray() {
+    public FinancialRecord[] getArray() {
         // temp storage
-        ArrayList<Expense> list = new ArrayList<>();
+        ArrayList<FinancialRecord> list = new ArrayList<>();
 
         String query = "SELECT * FROM EXPENSE";
 
@@ -143,13 +154,13 @@ public class DBExpenseStorage implements Storage, AutoCloseable {
 
             // loops through response
             while (rs.next()) {
-                list.add(new Expense(rs.getString("NAME"), rs.getDouble("AMOUNT")));
+                list.add(new FinancialRecord(rs.getString("NAME"), rs.getDouble("AMOUNT")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return list.toArray(Expense[]::new);
+        return list.toArray(FinancialRecord[]::new);
     }
 
     // I had to add this function for the db connection to get automatically closed

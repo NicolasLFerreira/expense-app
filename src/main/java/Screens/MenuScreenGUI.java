@@ -31,7 +31,7 @@ public class MenuScreenGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Close the application when the window is closed
         setLocationRelativeTo(null);  // Center the window on the screen
 
-        budgetManager = new BudgetManager(new DBExpenseStorage(new DatabaseManager()));  // Initialize the BudgetManager for managing expenses
+        budgetManager = new BudgetManager();  // Initialize the BudgetManager for managing expenses
         cardLayout = new CardLayout();  // Initialize CardLayout to switch between different panels
         mainPanel = new JPanel(cardLayout);  // Create the main panel that uses CardLayout
 

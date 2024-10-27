@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import Expenses.BudgetManager;
-import Expenses.Expense;
+import Expenses.FinancialRecord;
 
 public class ExpenseEntryPanel extends JPanel {
     // Fields for user input and BudgetManager reference
@@ -129,7 +129,7 @@ public class ExpenseEntryPanel extends JPanel {
             }
 
             // Create a new Expense object and add it to the BudgetManager
-            Expense expense = new Expense(description, amount); // Create a new expense
+            FinancialRecord expense = new FinancialRecord(description, amount); // Create a new expense
             budgetManager.addExpense(expense); // Add the expense to the budget manager
             clearFields(); // Clear the input fields after successful submission
             showSuccessMessage("Expense added successfully!"); // Show a success message

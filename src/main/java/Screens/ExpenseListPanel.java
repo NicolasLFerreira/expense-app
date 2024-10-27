@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 import Expenses.BudgetManager;
-import Expenses.Expense;
+import Expenses.FinancialRecord;
 
 /**
  * @author williamblake
@@ -126,7 +126,7 @@ class ExpenseListPanel extends JPanel {
         double total = 0;
 
         // Loop through expenses in BudgetManager and add them to the list model
-        for (Expense expense : budgetManager.getExpenses()) {
+        for (FinancialRecord expense : budgetManager.getExpenses()) {
             listModel.addElement(String.format("%s: $%.2f", 
                 expense.getName(), 
                 expense.getAmount()));  // Add each expense to the list
