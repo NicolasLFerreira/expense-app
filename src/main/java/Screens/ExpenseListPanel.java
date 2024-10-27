@@ -1,11 +1,16 @@
 package Screens;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
 import Expenses.BudgetManager;
 import Expenses.FinancialRecord;
-import Screens.UIConstants;
+
+/**
+ * 
+ * @author will
+ * 
+ * Displays a list of the expenses
+ */
 
 public class ExpenseListPanel extends JPanel {
 
