@@ -6,9 +6,9 @@ package Expenses;
 
 /**
  *
- * @author will
+ * @author nicolas
  *
- * abstracts the access to the expenses
+ * abstracts the access to a db
  */
 public interface Storage {
 

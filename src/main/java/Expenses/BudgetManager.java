@@ -4,10 +4,6 @@
  */
 package Expenses;
 
-import Database.DatabaseManager;
-import File.ExpenseParser;
-import File.FileManager;
-
 /**
  *
  * @author will, edited by nicolas
@@ -22,8 +18,9 @@ public final class BudgetManager {
     public BudgetManager(Storage storage) {
         this.expenses = storage;
 
+        // loads everything
         loadExpenses();
-        loadIncome();
+//        loadIncome();
     }
 
     // Public methods
@@ -37,19 +34,17 @@ public final class BudgetManager {
 
     public void setIncome(double income) {
         this.income = income;
-        saveIncome();
+//        saveIncome();
     }
 
     public void addExpense(Expense expense) {
         expenses.set(expense);  // Adds expense to storage
-        saveExpenses();
     }
 
     public void deleteExpense(String name) {
         if (!expenses.remove(name)) {
             System.out.println("Couldn't find \"" + name + "\"");
         }
-        saveExpenses();
     }
 
     public void displayAllExpenses() {
@@ -68,23 +63,22 @@ public final class BudgetManager {
         return totalExpenses;
     }
 
-    // File methods (calls nicolas' methods)
-    private void saveExpenses() {
-        FileManager.saveExpenses(ExpenseParser.serialise(expenses));
-    }
-
     public void loadExpenses() {
-        expenses.setAll(ExpenseParser.parse(FileManager.loadExpenses()));
+        expenses.setAll(expenses.getArray());
     }
 
-    private void saveIncome() {
-        FileManager.saveIncome(income);
-    }
+    // Income
+    
+//    private void saveIncome() {
+//        FileManager.saveIncome(income);
+//    }
+//
+//    private void loadIncome() {
+//        income = FileManager.loadIncome();
+//    }
 
-    private void loadIncome() {
-        income = FileManager.loadIncome();
-    }
-
+    // Other
+    
     public Expense[] getExpenses() {
         return expenses.getArray();
     }

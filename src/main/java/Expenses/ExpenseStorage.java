@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  *
- * @author will
+ * @author will, edited by nicolas
  *
  * stores expenses. abstracted the actual data structure behind with "Storage"
  * 
