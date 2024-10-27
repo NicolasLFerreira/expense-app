@@ -12,9 +12,13 @@ public class ExpenseEntryPanel extends JPanel {
     private final JTextField descriptionField;
     private final JTextField amountField;
     private final BudgetManager budgetManager;
+    private final UpdateTrigger updateTrigger;
 
     // Constructor for initializing the panel and its components
-    public ExpenseEntryPanel(BudgetManager budgetManager) {
+    public ExpenseEntryPanel(BudgetManager budgetManager, UpdateTrigger updateTrigger) {
+        // reference to be able to trigger the update
+        this.updateTrigger = updateTrigger;
+
         this.budgetManager = budgetManager;
         setLayout(new GridBagLayout());
         setBackground(UIConstants.BACKGROUND_COLOR);
@@ -63,8 +67,8 @@ public class ExpenseEntryPanel extends JPanel {
         JTextField field = new JTextField(20);
         field.setFont(UIConstants.LABEL_FONT);
         field.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(UIConstants.BORDER_COLOR),
-            BorderFactory.createEmptyBorder(8, 10, 8, 10)
+                BorderFactory.createLineBorder(UIConstants.BORDER_COLOR),
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)
         ));
         return field;
     }
@@ -84,6 +88,7 @@ public class ExpenseEntryPanel extends JPanel {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(UIConstants.SUCCESS_HOVER_COLOR);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 button.setBackground(UIConstants.SUCCESS_COLOR);
             }
@@ -110,61 +115,64 @@ public class ExpenseEntryPanel extends JPanel {
         gbc.weightx = 1.0;
         add(component, gbc);
     }
+
     // Handles the expense submission
-        private void submitExpense() {
-            try {
-                String description = descriptionField.getText().trim();
-                String amountText = amountField.getText().trim();
+    private void submitExpense() {
+        try {
+            String description = descriptionField.getText().trim();
+            String amountText = amountField.getText().trim();
 
-                // Validate that the description is not empty
-                if (description.isEmpty()) {
-                    showErrorMessage("Please enter a description");
-                    return;
-                }
-
-                // Validate that the amount is not empty
-                if (amountText.isEmpty()) {
-                    showErrorMessage("Please enter an amount");
-                    return;
-                }
-
-                // Parse the amount and check if it's greater than zero
-                double amount = Double.parseDouble(amountText);
-                if (amount <= 0) {
-                    showErrorMessage("Amount must be greater than zero");
-                    return;
-                }
-
-                // Create a new Expense object and add it to the BudgetManager
-                FinancialRecord expense = new FinancialRecord(description, amount);
-                budgetManager.addExpense(expense);
-                clearFields();
-                showSuccessMessage("Expense added successfully!");
-            } catch (NumberFormatException ex) {
-                showErrorMessage("Please enter a valid amount");
+            // Validate that the description is not empty
+            if (description.isEmpty()) {
+                showErrorMessage("Please enter a description");
+                return;
             }
-        }
 
-        // Displays an error message in a dialog box
-        private void showErrorMessage(String message) {
-            JOptionPane.showMessageDialog(this,
+            // Validate that the amount is not empty
+            if (amountText.isEmpty()) {
+                showErrorMessage("Please enter an amount");
+                return;
+            }
+
+            // Parse the amount and check if it's greater than zero
+            double amount = Double.parseDouble(amountText);
+            if (amount <= 0) {
+                showErrorMessage("Amount must be greater than zero");
+                return;
+            }
+
+            // Create a new Expense object and add it to the BudgetManager
+            FinancialRecord expense = new FinancialRecord(description, amount);
+            budgetManager.addExpense(expense);
+            // triggers the update
+            updateTrigger.update();
+            clearFields();
+            showSuccessMessage("Expense added successfully!");
+        } catch (NumberFormatException ex) {
+            showErrorMessage("Please enter a valid amount");
+        }
+    }
+
+    // Displays an error message in a dialog box
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this,
                 message,
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
-        }
+    }
 
-        // Displays a success message in a dialog box
-        private void showSuccessMessage(String message) {
-            JOptionPane.showMessageDialog(this,
+    // Displays a success message in a dialog box
+    private void showSuccessMessage(String message) {
+        JOptionPane.showMessageDialog(this,
                 message,
                 "Success",
                 JOptionPane.INFORMATION_MESSAGE);
-        }
-
-        // Clears the input fields and sets focus back to the description field
-        private void clearFields() {
-            descriptionField.setText("");
-            amountField.setText("");
-            descriptionField.requestFocus();
-        }
     }
+
+    // Clears the input fields and sets focus back to the description field
+    private void clearFields() {
+        descriptionField.setText("");
+        amountField.setText("");
+        descriptionField.requestFocus();
+    }
+}
