@@ -38,14 +38,23 @@ public final class BudgetManager {
         expenses.set(expense);  // Adds expense to storage
     }
 
+    // get methods
+    public FinancialRecord getExpense(String name) {
+        return expenses.get(name);
+    }
+
+    public FinancialRecord getIncome(String name) {
+        return incomes.get(name);
+    }
+
     // delete methods
     public void deleteExpense(String name) {
         if (!expenses.remove(name)) {
             System.out.println("Couldn't find \"" + name + "\"");
         }
     }
-    
-    public void deleteIncome(String name){
+
+    public void deleteIncome(String name) {
         if (!incomes.remove(name)) {
             System.out.println("Couldn't find \"" + name + "\"");
         }
@@ -59,7 +68,7 @@ public final class BudgetManager {
         }
         return totalExpenses;
     }
-    
+
     private double calculateTotalIncomes() {
         double totalIncomes = 0.0;
         for (FinancialRecord income : incomes.getArray()) {  // Loop through expenses to calculate total
@@ -71,8 +80,8 @@ public final class BudgetManager {
     public FinancialRecord[] getExpenses() {
         return expenses.getArray();
     }
-    
-    public FinancialRecord[] getIncome(){
+
+    public FinancialRecord[] getIncome() {
         return incomes.getArray();
     }
 
