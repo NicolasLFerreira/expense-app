@@ -14,7 +14,7 @@ import Database.TableType;
  */
 public abstract class Storage {
     
-    private final String table;
+    protected final String table;
     
     public Storage(TableType type){
         this.table = type.getValue();

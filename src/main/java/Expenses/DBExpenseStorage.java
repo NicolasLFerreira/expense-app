@@ -47,7 +47,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
     @Override
     public FinancialRecord get(String name) {
 
-        String query = "SELECT * FROM" + Tables.EXPENSE_TABLE + "WHERE NAME = ?";
+        String query = "SELECT * FROM " + table + " WHERE name = ?";
 
         // setups the statement
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
@@ -57,7 +57,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
 
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                double amount = result.getDouble("AMOUNT");
+                double amount = result.getDouble("amount");
                 return new FinancialRecord(name, amount);
             }
         } catch (SQLException ex) {
@@ -71,10 +71,10 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
     public void set(FinancialRecord expense) {
         
         // update command
-        String queryU = "UPDATE EXPENSE SET amount = ? WHERE name = ?";
+        String queryU = "UPDATE " + table + " SET amount = ? WHERE name = ?";
         
         // insert command
-        String queryI = "INSERT INTO EXPENSE (name, amount) VALUES (?, ?)";
+        String queryI = "INSERT INTO " + table + " (name, amount) VALUES (?, ?)";
         
         try {
             int rowsAffected;
@@ -110,7 +110,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
 
     @Override
     public boolean remove(String name) {
-        String query = "REMOVE FROM EXPENSE WHERE NAME = '?'";
+        String query = "REMOVE FROM " + table + " WHERE name = '?'";
 
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
             // sets name param
@@ -133,7 +133,7 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
         // from what I found online this should do the trick
         // gotta test to see if it works
 
-        String query = "DELETE FROM EXPENSE";
+        String query = "DELETE FROM " + table;
 
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
@@ -147,14 +147,14 @@ public class DBExpenseStorage extends Storage implements AutoCloseable {
         // temp storage
         ArrayList<FinancialRecord> list = new ArrayList<>();
 
-        String query = "SELECT * FROM EXPENSE";
+        String query = "SELECT * FROM " + table;
 
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
             ResultSet rs = statement.executeQuery();
 
             // loops through response
             while (rs.next()) {
-                list.add(new FinancialRecord(rs.getString("NAME"), rs.getDouble("AMOUNT")));
+                list.add(new FinancialRecord(rs.getString("name"), rs.getDouble("amount")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DBExpenseStorage.class.getName()).log(Level.SEVERE, null, ex);
