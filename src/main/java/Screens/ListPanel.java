@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 
 /**
@@ -23,7 +24,10 @@ public class ListPanel extends JPanel implements Updateable {
     private final DefaultListModel<String> listModel;
     private final JList<String> expenseList;
     private final JLabel totalLabel;
-    private final JTextField nameInput;
+
+    // New input field and delete button
+    private final JTextField deleteInput;
+    private final JButton deleteButton;
 
     // Budgetmanager and update manager
     private final BudgetManager budgetManager;
@@ -44,9 +48,6 @@ public class ListPanel extends JPanel implements Updateable {
         setLayout(new BorderLayout(10, 10)); // Set layout to BorderLayout with gaps
         setBackground(UIConstants.BACKGROUND_COLOR); // Set background color
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add padding around the panel
-
-        nameInput = createStyledTextField();
-        
 
         // Initialize list model and set custom cell renderer
         listModel = new DefaultListModel<>();
@@ -77,11 +78,44 @@ public class ListPanel extends JPanel implements Updateable {
         JScrollPane scrollPane = new JScrollPane(expenseList); // Add scroll pane for the list
         scrollPane.setBorder(BorderFactory.createLineBorder(UIConstants.BORDER_COLOR)); // Style the scroll pane border
 
+        // Add new input and button panel for deletion by name
+        JPanel deletePanel = new JPanel(new BorderLayout(10, 10));
+        JLabel hintText = new JLabel("Please enter the name of a record to be deleted.");
+        deleteInput = new JTextField("");
+        deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(deleteRecordByName());
+
+        deletePanel.add(hintText, BorderLayout.NORTH);
+        deletePanel.add(deleteInput, BorderLayout.CENTER);
+        deletePanel.add(deleteButton, BorderLayout.EAST);
+
+        // Components
         add(headerPanel, BorderLayout.NORTH); // Add the header panel to the top
         add(scrollPane, BorderLayout.CENTER); // Add the list to the center
         add(totalLabel, BorderLayout.SOUTH); // Add the total label to the bottom
+        add(deletePanel, BorderLayout.SOUTH); // Add the delete section
 
         update(); // Refresh the list to display the initial data
+    }
+
+    private ActionListener deleteRecordByName() {
+        return event -> {
+            String recordName = deleteInput.getText().trim();
+            if (recordName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter a name to delete.", "Input Required", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // System.out.println("\"" + recordName + "\""); // for testing if the name is correct
+            boolean isDeleted = budgetManager.deleteRecord(recordName, frType);
+            if (isDeleted) {
+                JOptionPane.showMessageDialog(this, recordName + " has been deleted.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                updateManager.triggerUpdate();
+                update();
+            } else {
+                JOptionPane.showMessageDialog(this, "No record found with the name: " + recordName, "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        };
     }
 
     // Creates a styled 'Clear All' button with hover effects and confirmation dialog
