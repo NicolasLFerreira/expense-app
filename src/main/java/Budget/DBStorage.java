@@ -110,7 +110,7 @@ public class DBStorage extends Storage implements AutoCloseable {
 
     @Override
     public boolean remove(String name) {
-        String query = "REMOVE FROM " + table + " WHERE name = '?'";
+        String query = "DELETE FROM " + table + " WHERE name = ?";
 
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
             // sets name param
