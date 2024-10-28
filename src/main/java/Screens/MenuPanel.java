@@ -21,6 +21,8 @@ public class MenuPanel extends JFrame {
     private final ListPanel expenseListPanel;   // Panel for displaying the list of expenses
     private final ListPanel incomeListPanel;   // Panel for displaying the list of income sources
 
+    private final UpdateManager updateManager;
+    
     /**
      * Constructor that initializes the main application window.
      *
@@ -33,7 +35,7 @@ public class MenuPanel extends JFrame {
         setLocationRelativeTo(null);  // Center the window on the screen
 
         // Update manager
-        UpdateManager updateManager = new UpdateManager();
+        updateManager = new UpdateManager();
 
         // Dashboard panel
         dashboardPanel = new DashboardPanel(budgetManager);  // Budget screen for adding and viewing expenses

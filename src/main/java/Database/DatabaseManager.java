@@ -50,8 +50,8 @@ public class DatabaseManager implements Manager {
         try ( Statement statement = connection.createStatement()) {
             // sql code to generate the table for a table
             String sql = "CREATE TABLE " + type.getValue() + " ("
-                    + SqlQueryParameters.NAME + " VARCHAR(255) NOT NULL PRIMARY KEY, "
-                    + SqlQueryParameters.AMOUNT + " DOUBLE NOT NULL)";
+                    + "name VARCHAR(255) NOT NULL PRIMARY KEY, "
+                    + "amount DOUBLE NOT NULL)";
             statement.executeUpdate(sql);
         } catch (SQLException ex) {
             // an error is given if the table already exists

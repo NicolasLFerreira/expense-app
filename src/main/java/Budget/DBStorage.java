@@ -108,8 +108,8 @@ public class DBStorage extends Storage implements AutoCloseable {
         }
     }
 
-    @Override
-    public boolean remove(String name) {
+//    @Override
+    public boolean remove1(String name) {
         String query = "DELETE FROM " + table + " WHERE name = ?";
 
         try ( PreparedStatement statement = connection.prepareStatement(query)) {
@@ -118,6 +118,25 @@ public class DBStorage extends Storage implements AutoCloseable {
 
             // return true if successful
             if (statement.executeUpdate() == 1) {
+                return true;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBStorage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+    @Override
+    public boolean remove(String name) {
+        String query = "DELETE FROM " + table + " WHERE name = ";
+
+        try ( Statement statement = connection.createStatement()) {
+            // sets name param
+            query += name;
+
+            // return true if successful
+            if (statement.executeUpdate(query) == 1) {
                 return true;
             }
 

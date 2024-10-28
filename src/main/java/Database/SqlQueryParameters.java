@@ -15,8 +15,4 @@ public final class SqlQueryParameters {
     // Table names
     public static final String EXPENSE = "Expense";
     public static final String INCOME = "Income";
-    
-    // columns
-    public static final String NAME = "name";
-    public static final String AMOUNT = "amount";
 }
