@@ -127,6 +127,7 @@ public class DBStorage extends Storage implements AutoCloseable {
 
         return false;
     }
+    
     @Override
     public boolean remove(String name) {
         String query = "DELETE FROM " + table + " WHERE name = ";

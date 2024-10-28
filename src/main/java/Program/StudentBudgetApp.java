@@ -22,7 +22,7 @@ public class StudentBudgetApp {
         // Create BudgetManager to manage expenses
         BudgetManager budgetManager = new BudgetManager(Mode.PRODUCTION);
 
-        // For the sake of logging the state of the database
+        // For the sake of logging the state of the database on startup
         ConsoleLogger cl = new ConsoleLogger(budgetManager);
         cl.log();
 
