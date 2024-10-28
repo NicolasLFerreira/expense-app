@@ -12,11 +12,11 @@ import Screens.*;
  *
  * @author will & nicolas
  *
- * Main application class to run the Student Budget Calculator program. This
+ * Main application class to run the Budget Tracker program. This
  * program allows users to manage their budgets by adding expenses, calculating
  * the remaining budget, and saving or loading expenses to/from a file.
  */
-public class StudentBudgetApp {
+public class BudgetApp {
 
     public static void main(String[] args) {
         // Create BudgetManager to manage expenses

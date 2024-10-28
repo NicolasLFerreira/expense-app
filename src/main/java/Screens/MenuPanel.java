@@ -29,7 +29,7 @@ public class MenuPanel extends JFrame {
      * @param budgetManager
      */
     public MenuPanel(BudgetManager budgetManager) {
-        super("Student Budget Calculator");  // Set title of the window
+        super("Budget Tracker");  // Set title of the window
         setSize(800, 600);  // Set the size of the window
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // Close the application when the window is closed
         setLocationRelativeTo(null);  // Center the window on the screen
