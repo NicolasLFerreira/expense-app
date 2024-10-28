@@ -13,6 +13,7 @@ package Database;
  */
 public class Configuration {
 
+    // Connection URLs
     public static final String prodURL = "jdbc:derby:ExpensesDB;create=true";
     public static final String testURL = "jdbc:derby:TestExpensesDB;create=true";
 }

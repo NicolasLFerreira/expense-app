@@ -27,8 +27,11 @@ public class DatabaseManager implements Manager {
 
     // default constructor
     public DatabaseManager(String URL) {
+        // Gets the URL through the constructor.
+        // For the sake of being able to reuse the class for testing and production
+        // environments
         this.URL = URL;
-        
+
         // Setups the embedded derby
         try {
             // use driver to get connection
