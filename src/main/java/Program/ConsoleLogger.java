@@ -4,7 +4,8 @@
  */
 package Program;
 
-import Expenses.*;
+import Budget.BudgetManager;
+import Budget.FinancialRecord;
 
 /**
  *

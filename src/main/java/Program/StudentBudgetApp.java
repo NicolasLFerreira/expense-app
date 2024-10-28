@@ -4,7 +4,7 @@
  */
 package Program;
 
-import Expenses.BudgetManager;
+import Budget.BudgetManager;
 import Screens.*;
 
 /**

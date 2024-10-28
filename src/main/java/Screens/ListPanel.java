@@ -5,8 +5,8 @@
 package Screens;
 
 import Enums.FinancialRecordType;
-import Expenses.BudgetManager;
-import Expenses.FinancialRecord;
+import Budget.BudgetManager;
+import Budget.FinancialRecord;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -23,6 +23,7 @@ public class ListPanel extends JPanel implements Updateable {
     private final DefaultListModel<String> listModel;
     private final JList<String> expenseList;
     private final JLabel totalLabel;
+    private final JTextField nameInput;
 
     // Budgetmanager and update manager
     private final BudgetManager budgetManager;
@@ -43,6 +44,9 @@ public class ListPanel extends JPanel implements Updateable {
         setLayout(new BorderLayout(10, 10)); // Set layout to BorderLayout with gaps
         setBackground(UIConstants.BACKGROUND_COLOR); // Set background color
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Add padding around the panel
+
+        nameInput = createStyledTextField();
+        
 
         // Initialize list model and set custom cell renderer
         listModel = new DefaultListModel<>();
@@ -105,8 +109,19 @@ public class ListPanel extends JPanel implements Updateable {
         clearButton.addActionListener(e -> clearAllRecords());
         return clearButton;
     }
-    // Clears all records after user confirmation and refreshes the list
 
+    // Creates a styled text field for user input
+    private JTextField createStyledTextField() {
+        JTextField field = new JTextField(20);
+        field.setFont(UIConstants.LABEL_FONT);
+        field.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(UIConstants.BORDER_COLOR),
+                BorderFactory.createEmptyBorder(8, 10, 8, 10)
+        ));
+        return field;
+    }
+
+    // Clears all records after user confirmation and refreshes the list
     private void clearAllRecords() {
         // Show a confirmation dialog before clearing all expenses
         int result = JOptionPane.showConfirmDialog(

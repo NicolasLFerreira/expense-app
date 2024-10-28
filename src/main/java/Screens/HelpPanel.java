@@ -8,7 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * @author williamblake Help screen for the application providing basic
+ * @author williamblake
+ * 
+ * Help screen for the application providing basic
  * instructions on how to use the Student Budget Calculator.
  */
 public class HelpPanel extends JPanel {

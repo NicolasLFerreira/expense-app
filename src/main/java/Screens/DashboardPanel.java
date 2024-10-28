@@ -3,7 +3,7 @@ package Screens;
 import Enums.FinancialRecordType;
 import javax.swing.*;
 import java.awt.*;
-import Expenses.BudgetManager;
+import Budget.BudgetManager;
 
 /**
  *
