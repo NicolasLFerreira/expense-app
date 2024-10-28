@@ -5,6 +5,7 @@
 package Program;
 
 import Budget.BudgetManager;
+import Enums.Mode;
 import Screens.*;
 
 /**
@@ -19,12 +20,12 @@ public class StudentBudgetApp {
 
     public static void main(String[] args) {
         // Create BudgetManager to manage expenses
-        BudgetManager budgetManager = new BudgetManager();
+        BudgetManager budgetManager = new BudgetManager(Mode.PRODUCTION);
 
         // For the sake of logging the state of the database
         ConsoleLogger cl = new ConsoleLogger(budgetManager);
         cl.log();
-        
+
         // Create MenuScreenGUI and pass the budget manager
         MenuPanel menuScreen = new MenuPanel(budgetManager);
 
