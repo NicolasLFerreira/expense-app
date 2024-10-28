@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Expenses;
+package Budget;
 
 import Database.DatabaseManager;
 import Enums.FinancialRecordType;
 
 /**
  *
- * @author nicolas, edited by will
+ * @author nicolas
  *
- * ExpenseManager class to manage all expenses
+ * BudgetManager class to manage all expenses
  */
 public final class BudgetManager {
 
