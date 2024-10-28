@@ -22,9 +22,9 @@ public class BudgetApp {
         // Create BudgetManager to manage expenses
         BudgetManager budgetManager = new BudgetManager(Mode.PRODUCTION);
 
-        // For the sake of logging the state of the database on startup
-        ConsoleLogger cl = new ConsoleLogger(budgetManager);
-        cl.log();
+//        // For the sake of logging the state of the database on startup
+//        ConsoleLogger cl = new ConsoleLogger(budgetManager);
+//        cl.log();
 
         // Create MenuScreenGUI and pass the budget manager
         MenuPanel menuScreen = new MenuPanel(budgetManager);
