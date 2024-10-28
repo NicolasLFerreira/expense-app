@@ -4,6 +4,7 @@
  */
 package Budget;
 
+import Database.Configuration;
 import Database.DatabaseManager;
 import Enums.FinancialRecordType;
 
@@ -19,9 +20,9 @@ public final class BudgetManager {
     private final Storage incomes; // Stores the incomes
 
     public BudgetManager() {
-        // Configures the storage to be the db one
-        this.expenses = new DBStorage(new DatabaseManager(), FinancialRecordType.EXPENSE);
-        this.incomes = new DBStorage(new DatabaseManager(), FinancialRecordType.INCOME);
+        // Configures the storage to be the db one using the production database url
+        this.expenses = new DBStorage(new DatabaseManager(Configuration.prodURL), FinancialRecordType.EXPENSE);
+        this.incomes = new DBStorage(new DatabaseManager(Configuration.prodURL), FinancialRecordType.INCOME);
     }
 
     // retrieves budget

@@ -22,11 +22,13 @@ import java.util.logging.Logger;
 public class DatabaseManager implements Manager {
 
     // connection string to the database
-    private static final String URL = "jdbc:derby:ExpensesDB;create=true";
+    private final String URL;
     private Connection connection;
 
     // default constructor
-    public DatabaseManager() {
+    public DatabaseManager(String URL) {
+        this.URL = URL;
+        
         // Setups the embedded derby
         try {
             // use driver to get connection
